@@ -1,3 +1,4 @@
+// components/ExpensesChart.js
 import React from 'react';
 import { View, Text } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
@@ -21,7 +22,7 @@ export default function ExpensesChart({ labels, values }) {
           labels: labels,
           datasets: [{ data: values }],
         }}
-        width={350}
+        width={350}   // you can adjust this if needed
         height={220}
         fromZero
         chartConfig={{
@@ -35,3 +36,36 @@ export default function ExpensesChart({ labels, values }) {
     </View>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

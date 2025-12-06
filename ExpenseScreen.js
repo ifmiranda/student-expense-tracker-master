@@ -1,4 +1,5 @@
 // ExpenseScreen.js
+import ExpensesChart from './components/ExpensesChart.js';
 import React, { useEffect, useState, useMemo } from 'react';
 import {
   SafeAreaView,
@@ -21,6 +22,30 @@ export default function ExpenseScreen() {
   const [note, setNote] = useState('');
   const [filter, setFilter] = useState('ALL'); // ALL | WEEK | MONTH
   const [editingExpense, setEditingExpense] = useState(null);
+
+    const getChartData = () => {
+    const totalsByCategory = {};
+
+    expenses.forEach((expense) => {
+      const category = expense.category || 'Other';
+      const amount = Number(expense.amount) || 0;
+
+      if (!totalsByCategory[category]) {
+        totalsByCategory[category] = 0;
+      }
+
+      totalsByCategory[category] += amount;
+    });
+
+    return {
+      labels: Object.keys(totalsByCategory),
+      values: Object.values(totalsByCategory),
+    };
+  };
+
+const { labels, values } = getChartData();
+
+
 
   // Load all expenses from SQLite
   const loadExpenses = async () => {
@@ -157,6 +182,8 @@ export default function ExpenseScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.heading}>Student Expense Tracker</Text>
+          <ExpensesChart labels={labels} values={values} />
+
 
       {/* Form */}
       <View style={styles.form}>
